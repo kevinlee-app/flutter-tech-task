@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tech_task/lunch_fridge/view/ingredient/ingredients_view.dart';
 import 'package:tech_task/shared/util/constants.dart';
 
 class HomeView extends StatefulWidget {
@@ -34,6 +35,11 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void _goToIngredientsView() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => IngredientsView(this._selectedDate),
+        ));
   }
 
   /* END METHODS */

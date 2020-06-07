@@ -21,6 +21,10 @@ dependencies:
     sdk: flutter
   # UI
   cupertino_icons: ^0.1.2
+  # Network
+  http: ^0.12.1
+  # Date format
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
