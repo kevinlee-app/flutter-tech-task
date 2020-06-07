@@ -59,7 +59,7 @@ class _HomeViewState extends State<HomeView> {
   Widget _appBarWidget() {
     return AppBar(
       title: Text(
-        'Lunch Recipes',
+        'Lunch Fridge',
       ),
       centerTitle: true,
     );

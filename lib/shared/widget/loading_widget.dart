@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tech_task/shared/util/constants.dart';
 
 class LoadingWidget extends StatelessWidget {
   final String text;
