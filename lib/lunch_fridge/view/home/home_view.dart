@@ -8,7 +8,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  DateTime _selectedDate = DateTime.now();
+  DateTime _selectedDate;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +21,20 @@ class _HomeViewState extends State<HomeView> {
   /* START METHODS */
 
   Future<Null> _showCalendar(BuildContext context) async {
+    _selectedDate = DateTime.now();
+    DateTime startDate;
+
+    // If over 14.00 p.m then the start date will be current day + 1
+    if (_selectedDate.hour > 14) {
+      startDate = _selectedDate.add(Duration(days: 1));
+    } else {
+      startDate = _selectedDate;
+    }
+
     final DateTime dt = await showDatePicker(
       context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime(2020),
+      initialDate: startDate,
+      firstDate: startDate,
       lastDate: DateTime(2025),
     );
 
