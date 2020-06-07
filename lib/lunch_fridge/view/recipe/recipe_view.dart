@@ -3,6 +3,8 @@ import 'package:tech_task/lunch_fridge/api/recipe_api.dart';
 import 'package:tech_task/lunch_fridge/model/ingredient_model.dart';
 import 'package:tech_task/lunch_fridge/model/recipe_model.dart';
 import 'package:tech_task/lunch_fridge/view/recipe/recipe_list_view.dart';
+import 'package:tech_task/shared/widget/connection_widget.dart';
+import 'package:tech_task/shared/widget/empty_data_widget.dart';
 import 'package:tech_task/shared/widget/loading_widget.dart';
 
 class RecipeView extends StatefulWidget {
@@ -21,12 +23,7 @@ class _RecipeViewState extends State<RecipeView> {
   void initState() {
     super.initState();
 
-    String params = "";
-    for (int i = 0; i < widget.selectedIngredients.length; i++) {
-      params += widget.selectedIngredients[i].title + ",";
-    }
-    params = params.substring(0, params.lastIndexOf(','));
-    futureRecipes = RecipeAPI().getRecipes(params);
+    futureRecipes = _getRecipes();
   }
 
   @override
@@ -36,6 +33,20 @@ class _RecipeViewState extends State<RecipeView> {
       body: _bodyWidget(),
     );
   }
+
+  /* START METHODS */
+
+  Future<List<RecipeModel>> _getRecipes() {
+    String params = "";
+    for (int i = 0; i < widget.selectedIngredients.length; i++) {
+      params += widget.selectedIngredients[i].title + ",";
+    }
+    params = params.substring(0, params.lastIndexOf(','));
+
+    return RecipeAPI().getRecipes(params);
+  }
+
+  /* END METHODS */
 
   /* START WIDGETS */
 
@@ -50,7 +61,6 @@ class _RecipeViewState extends State<RecipeView> {
 
   Widget _bodyWidget() {
     return FutureBuilder<List<RecipeModel>>(
-      initialData: List(),
       future: futureRecipes,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -64,12 +74,20 @@ class _RecipeViewState extends State<RecipeView> {
             }
           }
 
-          return RecipesListView(
-            selectedIngredients: widget.selectedIngredients,
-            recipes: recipes,
-          );
-        } else if (snapshot.error) {
-          return LoadingWidget(text: '');
+          return recipes.length > 0
+              ? RecipesListView(
+                  selectedIngredients: widget.selectedIngredients,
+                  recipes: recipes,
+                )
+              : EmptyDataWidget(
+                  text: 'No Recipe found',
+                );
+        } else if (snapshot.hasError) {
+          return ConnectionWidget(onPressed: () {
+            setState(() {
+              futureRecipes = _getRecipes();
+            });
+          });
         } else {
           return LoadingWidget(text: '');
         }

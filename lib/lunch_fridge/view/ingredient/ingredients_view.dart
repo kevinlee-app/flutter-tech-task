@@ -5,6 +5,8 @@ import 'package:tech_task/lunch_fridge/model/ingredient_model.dart';
 import 'package:tech_task/lunch_fridge/view/ingredient/ingredients_list_view.dart';
 import 'package:tech_task/lunch_fridge/view/recipe/recipe_view.dart';
 import 'package:tech_task/shared/util/constants.dart';
+import 'package:tech_task/shared/widget/connection_widget.dart';
+import 'package:tech_task/shared/widget/empty_data_widget.dart';
 import 'package:tech_task/shared/widget/loading_widget.dart';
 
 class IngredientsView extends StatefulWidget {
@@ -61,7 +63,7 @@ class _IngredientsViewState extends State<IngredientsView> {
           onPressed: () {},
         ),
       );
-      
+
       Scaffold.of(_snackBarContext).showSnackBar(snackBar);
     }
   }
@@ -82,11 +84,10 @@ class _IngredientsViewState extends State<IngredientsView> {
   Widget _futureWidget() {
     return ingredients.length == 0
         ? FutureBuilder<List<IngredientModel>>(
-            initialData: List(),
             future: futureIngredients,
             builder: (BuildContext context,
                 AsyncSnapshot<List<IngredientModel>> snapshot) {
-                  this._snackBarContext = context;
+              this._snackBarContext = context;
 
               if (snapshot.hasData) {
                 ingredients = snapshot.data;
@@ -98,9 +99,19 @@ class _IngredientsViewState extends State<IngredientsView> {
                       DateTime.parse(ingredients[i].useBy)
                           .isBefore(widget.selectedDate);
                 }
-                return _bodyWidget();
-              } else if (snapshot.error) {
-                return LoadingWidget(text: '');
+
+                return ingredients.length > 0
+                    ? _bodyWidget()
+                    : EmptyDataWidget(
+                        text: 'No Ingredient found',
+                      );
+              } else if (snapshot.hasError) {
+                return ConnectionWidget(onPressed: () {
+                  setState(() {
+                    ingredients = List();
+                    futureIngredients = IngredientAPI().getIngredients();
+                  });
+                });
               } else {
                 return LoadingWidget(text: '');
               }

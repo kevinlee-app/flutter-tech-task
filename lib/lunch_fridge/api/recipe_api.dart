@@ -11,7 +11,13 @@ class RecipeAPI {
     String url = kLunchBaseURL + '/recipes?ingredients=' + params;
     var headers = {'Content-Type': 'application/json'};
 
-    final response = await client.get(url, headers: headers);
+    http.Response response;
+
+    try {
+      response = await client.get(url, headers: headers);
+    } catch (ex) {
+      return Future.error('');
+    }
 
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body) as List<dynamic>;

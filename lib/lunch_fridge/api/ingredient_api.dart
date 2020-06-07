@@ -11,10 +11,13 @@ class IngredientAPI {
     String url = kLunchBaseURL + '/ingredients';
     var headers = {'Content-Type': 'application/json'};
 
-    final response = await client.get(
-      url,
-      headers: headers
-    );
+    http.Response response;
+
+    try {
+      response = await client.get(url, headers: headers);
+    } catch (ex) {
+      return Future.error('');
+    }
 
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body) as List<dynamic>;
@@ -25,7 +28,7 @@ class IngredientAPI {
 
       return ingredients;
     } else {
-      return Future.error('Something went wrong.');
+      return Future.error('');
     }
   }
 }
