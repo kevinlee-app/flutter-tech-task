@@ -3,6 +3,18 @@ __Language :__ [English](README.md) | Bahasa Indonesia
 # Mobile Technical Task
 Aplikasi *mobile* untuk menyarankan resep makan siang
 
+## Menejalankan Aplikasi
+Untuk menjalankan aplikasi dari simulator atau device, jalankan perintah berikut di terminal :
+- `$ flutter pub get`
+- `$ flutter run`
+
+atau melalui VSCode dengan memilih menu Run > Start Debugging (F5)
+
+## Menjalankan Test melalui VSCode
+1. Buka project root folder di VSCode
+2. Buka test file
+3. Klik menu Start Debugging atau tekan F5
+
 ## Manajemen Waktu
 Tidak ada batasan waktu untuk mengerjakan *task* ini. Anda bebas mengatur waktu untuk menyelesaikan *requirement* yang kami minta.
 

@@ -3,6 +3,18 @@ __Language :__ English | [Bahasa Indonesia](README_ID.md)
 # Mobile Technical Task
 Apps for Lunch Recipes Suggestion
 
+## Running App
+To launch app on simulator or device, run the following command from terminal :
+- `$ flutter pub get`
+- `$ flutter run`
+
+or from VSCode by choosing menu Run > Start Debugging (F5)
+
+## Running Test from VSCode
+1. Open the project root folder from VSCode
+2. Open the test file
+3. Click the Start Debugging option or Press F5
+
 ## Time Management
 There is no deadline to do this tech task. It's up to you how you manage your time to accomplish at least the requirements.
 
