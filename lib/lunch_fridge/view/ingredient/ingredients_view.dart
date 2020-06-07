@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:tech_task/lunch_fridge/api/ingredient_api.dart';
 import 'package:tech_task/lunch_fridge/model/ingredient_model.dart';
 import 'package:tech_task/lunch_fridge/view/ingredient/ingredients_list_view.dart';
+import 'package:tech_task/lunch_fridge/view/recipe/recipe_view.dart';
 import 'package:tech_task/shared/util/constants.dart';
 import 'package:tech_task/shared/widget/loading_widget.dart';
 
@@ -17,6 +18,7 @@ class IngredientsView extends StatefulWidget {
 
 class _IngredientsViewState extends State<IngredientsView> {
   List<IngredientModel> ingredients = List();
+  BuildContext _snackBarContext;
 
   Future<List<IngredientModel>> futureIngredients;
 
@@ -44,7 +46,24 @@ class _IngredientsViewState extends State<IngredientsView> {
   }
 
   void _goToRecipeView(List<IngredientModel> selectedIngredients) {
-    
+    if (selectedIngredients.isNotEmpty) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                RecipeView(selectedIngredients: selectedIngredients),
+          ));
+    } else {
+      var snackBar = SnackBar(
+        content: Text('Please select ingredient'),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {},
+        ),
+      );
+      
+      Scaffold.of(_snackBarContext).showSnackBar(snackBar);
+    }
   }
 
   /* END METHODS */
@@ -67,6 +86,8 @@ class _IngredientsViewState extends State<IngredientsView> {
             future: futureIngredients,
             builder: (BuildContext context,
                 AsyncSnapshot<List<IngredientModel>> snapshot) {
+                  this._snackBarContext = context;
+
               if (snapshot.hasData) {
                 ingredients = snapshot.data;
                 ingredients.sort((a, b) =>
@@ -114,7 +135,7 @@ class _IngredientsViewState extends State<IngredientsView> {
               color: kThemeColor,
               onPressed: () => _goToRecipeView(selectedIngredients),
               child: Text(
-                'Get Receipts',
+                'Get Recipes',
                 style: textStyle_Title,
               ),
             ),
