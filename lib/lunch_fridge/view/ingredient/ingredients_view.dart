@@ -8,6 +8,7 @@ import 'package:tech_task/shared/util/constants.dart';
 import 'package:tech_task/shared/widget/connection_widget.dart';
 import 'package:tech_task/shared/widget/empty_data_widget.dart';
 import 'package:tech_task/shared/widget/loading_widget.dart';
+import 'package:http/http.dart' as http;
 
 class IngredientsView extends StatefulWidget {
   final DateTime selectedDate;
@@ -28,7 +29,7 @@ class _IngredientsViewState extends State<IngredientsView> {
   void initState() {
     super.initState();
 
-    futureIngredients = IngredientAPI().getIngredients();
+    futureIngredients = IngredientAPI().getIngredients(http.Client());
   }
 
   @override
@@ -109,7 +110,7 @@ class _IngredientsViewState extends State<IngredientsView> {
                 return ConnectionWidget(onPressed: () {
                   setState(() {
                     ingredients = List();
-                    futureIngredients = IngredientAPI().getIngredients();
+                    futureIngredients = IngredientAPI().getIngredients(http.Client());
                   });
                 });
               } else {

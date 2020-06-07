@@ -6,6 +6,7 @@ import 'package:tech_task/lunch_fridge/view/recipe/recipe_list_view.dart';
 import 'package:tech_task/shared/widget/connection_widget.dart';
 import 'package:tech_task/shared/widget/empty_data_widget.dart';
 import 'package:tech_task/shared/widget/loading_widget.dart';
+import 'package:http/http.dart' as http;
 
 class RecipeView extends StatefulWidget {
   final List<IngredientModel> selectedIngredients;
@@ -43,7 +44,7 @@ class _RecipeViewState extends State<RecipeView> {
     }
     params = params.substring(0, params.lastIndexOf(','));
 
-    return RecipeAPI().getRecipes(params);
+    return RecipeAPI().getRecipes(params, http.Client());
   }
 
   /* END METHODS */

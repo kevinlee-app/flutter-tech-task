@@ -4,8 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:tech_task/shared/util/constants.dart';
 
 class IngredientAPI {
-  Future<List<IngredientModel>> getIngredients() async {
-    var client = http.Client();
+  Future<List<IngredientModel>> getIngredients(http.Client client) async {
     List<IngredientModel> ingredients;
 
     String url = kLunchBaseURL + '/ingredients';
@@ -19,16 +18,20 @@ class IngredientAPI {
       return Future.error('');
     }
 
-    if (response.statusCode == 200) {
-      final result = jsonDecode(response.body) as List<dynamic>;
+    if (response != null) {
+      if (response.statusCode == 200) {
+        final result = jsonDecode(response.body) as List<dynamic>;
 
-      ingredients = result.map((item) {
-        return IngredientModel.fromJson(item);
-      }).toList();
+        ingredients = result.map((item) {
+          return IngredientModel.fromJson(item);
+        }).toList();
 
-      return ingredients;
+        return ingredients;
+      } else {
+        return Future.error('');
+      }
     } else {
-      return Future.error('');
+      return List();
     }
   }
 }
