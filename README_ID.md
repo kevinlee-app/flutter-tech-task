@@ -3,6 +3,9 @@ __Language :__ [English](README.md) | Bahasa Indonesia
 # Mobile Technical Task
 Aplikasi *mobile* untuk menyarankan resep makan siang
 
+## Screenshots
+![Screenshots](https://www.dropbox.com/s/9ojo6pzwxme5ldp/ss.png?raw=true)
+
 ## Menejalankan Aplikasi
 Untuk menjalankan aplikasi dari simulator atau device, jalankan perintah berikut di terminal :
 - `$ flutter pub get`

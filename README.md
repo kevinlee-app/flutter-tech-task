@@ -3,6 +3,9 @@ __Language :__ English | [Bahasa Indonesia](README_ID.md)
 # Mobile Technical Task
 Apps for Lunch Recipes Suggestion
 
+## Screenshots
+![Screenshots](https://www.dropbox.com/s/9ojo6pzwxme5ldp/ss.png?raw=true)
+
 ## Running App
 To launch app on simulator or device, run the following command from terminal :
 - `$ flutter pub get`
